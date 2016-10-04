@@ -50,7 +50,8 @@ module ForemanOpenscap
 
         # Add permissions
         security_block :foreman_openscap do
-          raise 'defining permissions'
+          p `spring status`
+          `spring stop`
           permission :view_arf_reports, {:arf_reports => [:index, :show, :parse_html, :show_html,
                                                           :parse_bzip, :auto_complete_search],
                                          'api/v2/compliance/arf_reports' => [:index, :show],
