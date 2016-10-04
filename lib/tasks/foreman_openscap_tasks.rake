@@ -57,14 +57,9 @@ namespace :test do
   end
 end
 
-Rake::Task[:test].enhance do
-  Rake::Task['test:foreman_openscap'].invoke
-end
+Rake::Task["test"].enhance ['test:foreman_openscap']
 
 load 'tasks/jenkins.rake'
 if Rake::Task.task_defined?(:'jenkins:unit')
-  Rake::Task["jenkins:unit"].enhance do
-    Rake::Task['test:foreman_openscap'].invoke
-    Rake::Task['foreman_openscap:rubocop'].invoke
-  end
+  Rake::Task["jenkins:unit"].enhance ['test:foreman_openscap', 'foreman_openscap:rubocop']
 end
